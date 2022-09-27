@@ -1,0 +1,138 @@
+openapi: "3.0.2"
+info:
+  title: API Title
+  version: "1.0"
+servers:
+  - url: https://api.server.test/v1
+paths:
+  /signup:
+    post:
+      tags:
+        - authorization
+      description: 유저 회원가입
+      operationId: emailPasswordSignUp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "request.yaml#/EmailPasswordSignUp"
+      responses:
+        200:
+          description: 이메일, 비밀번호 인증 성공
+          content:
+            application/json:
+              schema:
+                $ref: "response.yaml#/SignUpResponse"
+        400:
+          description: 요청 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/ValidationError"
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"
+
+  /signin:
+    post:
+      tags:
+        - authorization
+      description: 유저 로그인
+      operationId: emailPasswordSignIn
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "request.yaml#/EmailPasswordSignIn"
+      responses:
+        200:
+          description: 이메일, 비밀번호 인증 성공
+          content:
+            application/json:
+              schema:
+                $ref: "response.yaml#/SignInResponse"
+        400:
+          description: 요청 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/ValidationError"
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"
+
+  /box:
+    get:
+      tags:
+        - box
+      description: 암송함 리스트 조회
+      operationId: getBoxes
+      parameters:
+        - $ref: 'header.yaml#/AuthorizationHeader'
+      responses:
+        200:
+          description: 암송함 리스트 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: "response.yaml#/BoxListResponse"
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"
+
+  /box/{box-id}:
+    get:
+      tags:
+        - box
+      description: 암송함 상세 조회
+      operationId: getBox
+      parameters:
+        - $ref: 'header.yaml#/AuthorizationHeader'
+      responses:
+        200:
+          description: 암송함 상세 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: "response.yaml#/BoxResponse"
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"

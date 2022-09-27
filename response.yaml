@@ -1,0 +1,81 @@
+SignUpResponse:
+  description: 회원가입 성공
+  type: object
+  required:
+    - token
+  properties:
+    token:
+      description: 토큰
+      type: string
+
+SignInResponse:
+  description: 로그인 성공
+  type: object
+  required:
+    - token
+  properties:
+    token:
+      description: 토큰
+      type: string
+
+BoxListResponse:
+  description: 암송함 조회 성공
+  type: object
+  required:
+  properties:
+    total_number_of_boxes:
+      description: 전체 암송함 갯수
+      type: integer
+    total_number_of_cards:
+      description: 전체 말씀 카드 갯수
+      type: integer
+    boxes:
+      description: 암송함 정보
+      type: array
+      items:
+        type: object
+        properties:
+          box_id:
+            description: 암송함 id
+            type: string
+          name:
+            description: 암송함 이름
+            type: string
+          number_of_cards_in_box:
+            description: 암송함 내 카드 갯수
+            type: integer
+          progress:
+            description: 암송 진행률
+            type: integer
+          color:
+            $ref: 'schema/enums.yaml#/BoxColor'
+
+BoxResponse:
+  description: 암송함 조회 성공
+  type: object
+  required:
+    - name
+  properties:
+    box_id:
+      description: 암송함 id
+      type: string
+    name:
+      description: 암송함 이름
+      type: string
+    first_stage:
+      description: 1단계 정보
+      $ref: 'schema/box.yaml#/Stage'
+    second_stage:
+      description: 2단계 정보
+      $ref: 'schema/box.yaml#/Stage'
+    third_stage:
+      description: 3단계 정보
+      $ref: 'schema/box.yaml#/Stage'
+
+
+
+
+
+
+
+

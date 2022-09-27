@@ -1,0 +1,27 @@
+EmailPasswordSignUp:
+  description: 이메일과 비밀번호로 인증하는 방식
+  type: object
+  required:
+    - email
+    - password
+  properties:
+    email:
+      description: 사용자의 email
+      type: string
+    password:
+      description: 사용자의 비밀번호
+      type: string
+
+EmailPasswordSignIn:
+  description: 이메일과 비밀번호로 인증하는 방식
+  type: object
+  required:
+    - email
+    - password
+  properties:
+    email:
+      description: 사용자의 email
+      type: string
+    password:
+      description: 사용자의 비밀번호
+      type: string
