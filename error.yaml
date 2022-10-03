@@ -1,0 +1,80 @@
+PortError:
+  description: 기본 에러 포맷
+  type: object
+  required:
+    - title
+    - detail
+  properties:
+    title:
+      description: 에러 이름
+      type: string
+    detail:
+      description: 에러 세부사항
+      type: string
+  discriminator:
+    propertyName: title
+
+InternalError:
+  description: 미확인 서버 에러
+  allOf:
+    - $ref: "error.yaml#/PortError"
+
+UnauthorizedError:
+  description: 인증 에러
+  allOf:
+    - $ref: "error.yaml#/PortError"
+
+UserNotFoundError:
+  description: 주어진 user_id 값에 대한 user가 존재하지 않음
+  allOf:
+    - $ref: "error.yaml#/PortError"
+
+EmailAlreadyExistsError:
+  description: 요청한 email 주소가 이미 사용되고 있음
+  allOf:
+    - $ref: "error.yaml#/PortError"
+
+EmailNotFoundError:
+  description: email 주소가 존재하지 않음
+  allOf:
+    - $ref: "error.yaml#/PortError"
+
+WrongPasswordError:
+  description: 잘못된 비밀번호 입력
+  allOf:
+    - $ref: "error.yaml#/PortError"
+
+NotYourMerchantError:
+  description: 자신이 속한 merchant가 아닌 merchant를 조회한 경우 발생하는 에러
+  allOf:
+    - $ref: "error.yaml#/PortError"
+
+NotYourStoreError:
+  description: 자신이 속한 store가 아닌 store 조회한 경우 발생하는 에러
+  allOf:
+    - $ref: "error.yaml#/PortError"
+
+NotYourUserError:
+  description: 본인의 계정/하위계정이 아닌 계정을 조회한 경우 발생하는 에러
+  allOf:
+    - $ref: "error.yaml#/PortError"
+
+ValidationError:
+  description: Request body 혹은 query parameter에 올바르지 않은 값이 입력된 경우 발생하는 에러
+  allOf:
+    - $ref: "error.yaml#/PortError"
+    - type: object
+      required:
+        - invalid_fields
+      properties:
+        invalid_fields:
+          description: 올바르지 않은 값이 입력된 필드 목록
+          type: array
+          items:
+            type: string
+
+IncorrectDataCountError:
+  description: Request에서 요청한 리소스 수와, 실제 서버에 저장되어있는 리소스 수가 다른 경우 발생하는 에러
+  allOf:
+    - $ref: "error.yaml#/PortError"
+

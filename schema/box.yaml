@@ -1,0 +1,18 @@
+Stage:
+  description: 암송함 상세 정보
+  type: object
+  properties:
+    recitation_method:
+      description: 암송 방법
+      type: string
+      enum:
+        - CARD_FLIP
+        - POST_IT
+    total_number_of_cards_in_stage:
+      description: 단계 내 전체 카드 갯수
+      type: integer
+    number_of_recitated_cards_in_stage:
+      description: 단계 내 암송한 카드 갯수
+      type: integer
+
+
