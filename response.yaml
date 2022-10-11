@@ -21,7 +21,6 @@ SignInResponse:
 BoxListResponse:
   description: 암송함 조회 성공
   type: object
-  required:
   properties:
     total_number_of_boxes:
       description: 전체 암송함 갯수
