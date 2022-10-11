@@ -3,16 +3,7 @@ Stage:
   type: object
   properties:
     recitation_method:
-      description: 암송 방법
-      type: string
-      enum:
-        - CARD_FLIP
-        - POST_IT
+      $ref: 'enums.yaml#/RecitationMethods'
     total_number_of_cards_in_stage:
-      description: 단계 내 전체 카드 갯수
+      description: 단계 내 카드 갯수
       type: integer
-    number_of_recitated_cards_in_stage:
-      description: 단계 내 암송한 카드 갯수
-      type: integer
-
-

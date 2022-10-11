@@ -49,18 +49,18 @@ BoxListResponse:
           color:
             $ref: 'schema/enums.yaml#/BoxColor'
 
-BoxResponse:
+GetBoxResponse:
   description: 암송함 조회 성공
   type: object
   required:
     - name
   properties:
-    box_id:
-      description: 암송함 id
-      type: string
     name:
       description: 암송함 이름
       type: string
+    total_number_of_cards_in_box:
+      description: 암송함 내 전체 카드 갯수
+      type: integer
     first_stage:
       description: 1단계 정보
       $ref: 'schema/box.yaml#/Stage'
@@ -71,10 +71,135 @@ BoxResponse:
       description: 3단계 정보
       $ref: 'schema/box.yaml#/Stage'
 
+CreateUpdateBoxResponse:
+  description: 암송함 신규 생성 응답
+  type: object
+  properties:
+    name:
+      description: 암송함 이름
+      type: string
+    push_alarm_time:
+      description: 푸시 알림 시각
+      type: string
+      format: 'date-time'
+    is_push_alarm_enabled:
+      description: 푸시 알림 활성화 여부
+      type: boolean
+    recitation_method_1:
+      $ref: 'schema/enums.yaml#/RecitationMethods'
+    recitation_method_2:
+      $ref: 'schema/enums.yaml#/RecitationMethods'
+    recitation_method_3:
+      $ref: 'schema/enums.yaml#/RecitationMethods'
+    sticker_color:
+      $ref: 'schema/enums.yaml#/BoxColor'
+    is_pinned:
+      description: 고정 여부
+      type: boolean
+    is_deleted:
+      description: 삭제 여부
+      type: boolean
+    created:
+      description: 생성 시각
+      type: string
+      format: 'date-time'
+    modified:
+      description: 수정 시각
+      type: string
+      format: 'date-time'
 
+CreateCardsResponse:
+  description: 암송함 신규 생성 응답
+  type: object
+  properties:
+    box_id:
+      description: 카드가 속한 box id
+      type: string
+    cards:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            description: 카드 id
+            type: string
+          verse_address:
+            description: 말씀 주소
+            type: string
+          verse_text:
+            description: 말씀 본문
+            type: string
+          created:
+            description: 생성 시각
+            type: string
+            format: 'date-time'
 
+GetCardsResponse:
+  description: 카드 조회 응답
+  type: object
+  properties:
+    cards:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            description: 카드 id
+            type: string
+          verse_address:
+            description: 말씀 주소
+            type: string
+          verse_text:
+            description: 말씀 본문
+            type: string
+          created:
+            description: 생성 시각
+            type: string
+            format: 'date-time'
+          modified:
+            description: 수정 시각
+            type: string
+            format: 'date-time'
 
+UpdateCardResponse:
+  description: 카드 수정 응답
+  type: object
+  properties:
+    id:
+      description: 카드 id
+      type: string
+    stage:
+      $ref: 'schema/enums.yaml#/CardStage'
+    verse_address:
+      description: 말씀 주소
+      type: string
+    verse_text:
+      description: 말씀 본문
+      type: string
+    created:
+      description: 생성 시각
+      type: string
+      format: 'date-time'
+    modified:
+      description: 수정 시각
+      type: string
+      format: 'date-time'
 
-
-
-
+GetBibleVerseResponse:
+  description: 성경 구절 응답
+  type: array
+  items:
+    type: object
+    properties:
+      book:
+        description: 성경
+        type: string
+      chapter:
+        description: 장
+        type: integer
+      verse:
+        description: 절
+        type: integer
+      text:
+        description: 말씀 본문
+        type: string
