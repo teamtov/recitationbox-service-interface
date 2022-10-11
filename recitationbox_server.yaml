@@ -108,6 +108,38 @@ paths:
             application/json:
               schema:
                 $ref: "error.yaml#/InternalError"
+    post:
+      tags:
+        - box
+      description: 암송함 신규 생성
+      operationId: createBox
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'request.yaml#/CreateBox'
+      parameters:
+        - $ref: 'header.yaml#/AuthorizationHeader'
+      responses:
+        200:
+          description: 암송함 상세 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: "response.yaml#/CreateUpdateBoxResponse"
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"
 
   /box/{box-id}:
     get:
@@ -117,13 +149,245 @@ paths:
       operationId: getBox
       parameters:
         - $ref: 'header.yaml#/AuthorizationHeader'
+        - name: box-id
+          required: true
+          in: path
+          description: 조회할 box의 id
+          schema:
+            type: string
       responses:
         200:
           description: 암송함 상세 조회 성공
           content:
             application/json:
               schema:
-                $ref: "response.yaml#/BoxResponse"
+                $ref: "response.yaml#/GetBoxResponse"
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"
+    put:
+      tags:
+        - box
+      description: 암송함 수정
+      operationId: updateBox
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'request.yaml#/UpdateBox'
+      parameters:
+        - $ref: 'header.yaml#/AuthorizationHeader'
+        - name: box-id
+          required: true
+          in: path
+          description: 수정할 box의 id
+          schema:
+            type: string
+      responses:
+        200:
+          description: 암송함 상세 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: "response.yaml#/CreateUpdateBoxResponse"
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"
+
+  /cards/{box-id}:
+    post:
+      tags:
+        - card
+      description: 카드 신규 생성
+      operationId: createCard
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'request.yaml#/CreateCard'
+      parameters:
+        - $ref: 'header.yaml#/AuthorizationHeader'
+        - name: box-id
+          required: true
+          in: path
+          description: 카드를 생성할 box의 id
+          schema:
+            type: string
+      responses:
+        200:
+          description: 카드 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "response.yaml#/CreateCardsResponse"
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"
+
+  /cards/{box-id}/{stage}:
+    get:
+      tags:
+        - card
+      description: 단계별 카드 조회
+      operationId: getCards
+      parameters:
+        - $ref: 'header.yaml#/AuthorizationHeader'
+        - name: box-id
+          required: true
+          in: path
+          description: 조회할 카드가 속한 box의 id
+          schema:
+            type: string
+        - name: stage
+          required: true
+          in: path
+          description: 조회할 카드의 단계
+          schema:
+            $ref: "schema/enums.yaml#/CardStage"
+      responses:
+        200:
+          description: 카드 죄 성공
+          content:
+            application/json:
+              schema:
+                $ref: "response.yaml#/GetCardsResponse"
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"
+
+  /cards/{card-id}:
+    put:
+      tags:
+        - card
+      description: 카드 단계 수정
+      operationId: updateCard
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: 'request.yaml#/UpdateCard'
+      parameters:
+        - $ref: 'header.yaml#/AuthorizationHeader'
+        - name: card-id
+          required: true
+          in: path
+          description: 수정할 card의 id
+          schema:
+            type: string
+      responses:
+        200:
+          description: 카드 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "response.yaml#/UpdateCardResponse"
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"
+    delete:
+      tags:
+        - card
+      description: 카드 삭제
+      operationId: deleteCard
+      parameters:
+        - $ref: 'header.yaml#/AuthorizationHeader'
+        - name: card-id
+          required: true
+          in: path
+          description: 삭제할 card의 id
+          schema:
+            type: string
+      responses:
+        200:
+          description: 카드 삭제 성공
+        401:
+          description: 인증 실패
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/UnauthorizedError"
+        500:
+          description: 서버 에러
+          content:
+            application/json:
+              schema:
+                $ref: "error.yaml#/InternalError"
+
+  /bible:
+    get:
+      tags:
+        - bible
+      description: 성경 구절 조회
+      operationId: getBibleVerse
+      parameters:
+        - $ref: 'header.yaml#/AuthorizationHeader'
+        - name: book
+          required: true
+          in: query
+          description: 성경 이름
+          schema:
+            type: string
+        - name: chapter
+          required: true
+          in: query
+          description: 장
+          schema:
+            type: string
+      responses:
+        200:
+          description: 카드 생성 성공
+          content:
+            application/json:
+              schema:
+                $ref: "response.yaml#/GetBibleVerseResponse"
         401:
           description: 인증 실패
           content:

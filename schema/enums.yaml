@@ -6,3 +6,18 @@ BoxColor:
     - YELLOW
     - BLUE
     - RED
+
+RecitationMethods:
+  description: 암송 방법
+  type: string
+  enum:
+    - CARD_FLIP
+    - POST_IT
+
+CardStage:
+  description: 카드가 속한 단계
+  type: string
+  enum:
+    - FIRST
+    - SECOND
+    - THIRD

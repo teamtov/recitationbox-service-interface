@@ -25,3 +25,84 @@ EmailPasswordSignIn:
     password:
       description: 사용자의 비밀번호
       type: string
+
+CreateBox:
+  description: 암송함 신규 생성
+  type: object
+  properties:
+    name:
+      description: 암송함 이름
+      type: string
+    push_alarm_time:
+      description: 푸시 알림 시각
+      type: string
+      format: 'date-time'
+    is_push_alarm_enabled:
+      description: 푸시 알림 활성화 여부
+      type: boolean
+    recitation_method_1:
+      $ref: 'schema/enums.yaml#/RecitationMethods'
+    recitation_method_2:
+      $ref: 'schema/enums.yaml#/RecitationMethods'
+    recitation_method_3:
+      $ref: 'schema/enums.yaml#/RecitationMethods'
+    sticker_color:
+      $ref: 'schema/enums.yaml#/BoxColor'
+    is_pinned:
+      description: 고정 여부
+      type: boolean
+
+UpdateBox:
+  description: 암송함 수정
+  type: object
+  properties:
+    name:
+      description: 암송함 이름
+      type: string
+    push_alarm_time:
+      description: 푸시 알림 시각
+      type: string
+      format: 'date-time'
+    is_push_alarm_enabled:
+      description: 푸시 알림 활성화 여부
+      type: boolean
+    recitation_method_1:
+      $ref: 'schema/enums.yaml#/RecitationMethods'
+    recitation_method_2:
+      $ref: 'schema/enums.yaml#/RecitationMethods'
+    recitation_method_3:
+      $ref: 'schema/enums.yaml#/RecitationMethods'
+    sticker_color:
+      $ref: 'schema/enums.yaml#/BoxColor'
+    is_pinned:
+      description: 고정 여부
+      type: boolean
+    is_deleted:
+      description: 삭제 여부
+      type: boolean
+
+CreateCard:
+  description: 카드 신규 생성
+  type: object
+  properties:
+    box_id:
+      description: 카드가 속할 box id
+      type: string
+    cards:
+      type: array
+      items:
+        type: object
+        properties:
+          verse_address:
+            description: 말씀 주소
+            type: string
+          verse_text:
+            description: 말씀 본문
+            type: string
+
+UpdateCard:
+  description: 카드 단계 수정
+  type: object
+  properties:
+    stage:
+      $ref: 'schema/enums.yaml#/CardStage'
