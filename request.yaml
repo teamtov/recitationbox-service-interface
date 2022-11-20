@@ -1,3 +1,21 @@
+UuidSignUp:
+  description: 기기 uuid로 회원가입
+  type: object
+  required:
+    - uuid
+  properties:
+    uuid:
+      type: string
+
+UuidSignIn:
+  description: 기기 uuid로 로그인
+  type: object
+  required:
+    - uuid
+  properties:
+    uuid:
+      type: string
+
 EmailPasswordSignUp:
   description: 이메일과 비밀번호로 인증하는 방식
   type: object

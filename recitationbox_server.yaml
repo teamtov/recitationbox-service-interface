@@ -10,16 +10,16 @@ paths:
       tags:
         - authorization
       description: 유저 회원가입
-      operationId: emailPasswordSignUp
+      operationId: signUp
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "request.yaml#/EmailPasswordSignUp"
+              $ref: "request.yaml#/UuidSignUp"
       responses:
         200:
-          description: 이메일, 비밀번호 인증 성공
+          description: 인증 성공
           content:
             application/json:
               schema:
@@ -48,16 +48,16 @@ paths:
       tags:
         - authorization
       description: 유저 로그인
-      operationId: emailPasswordSignIn
+      operationId: signIn
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "request.yaml#/EmailPasswordSignIn"
+              $ref: "request.yaml#/UuidSignIn"
       responses:
         200:
-          description: 이메일, 비밀번호 인증 성공
+          description: 인증 성공
           content:
             application/json:
               schema:
